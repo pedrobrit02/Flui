@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>FLUI — Agendamento para Uso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Style.css" />
+  </head>
+  <body>
+    <header class="site-header" id="topo">
+      <nav class="nav" aria-label="Navegação principal">
+        <div class="container nav__inner">
+          <a class="brand" href="index.html" aria-label="Ir para o início">
+            <span class="brand__symbol" aria-hidden="true"></span>
+            <span class="brand__text">FLUI</span>
+          </a>
+
+          <button
+            class="nav__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span class="sr-only">Abrir menu</span>
+            <span class="nav__toggleLines" aria-hidden="true"></span>
+          </button>
+
+          <div class="nav__menu" id="nav-menu">
+            <a class="nav__link" href="#o-que-e">O que é</a>
+            <a class="nav__link" href="#o-que-oferecemos">O que oferecemos</a>
+            <a class="nav__link" href="#Utilizar equipamentos">Equipamentos</a>
+            <a class="nav__link" href="#requisitos">Requisitos</a>
+            <a class="nav__link" href="#eventos">Eventos</a>
+            <a class="nav__link" href="#documentacao-flui">Documentos</a>
+            <a class="nav__link" href="#docentes">Docentes</a>
+            <a class="nav__link" href="#alunos">Bolsas</a>
+            <a class="nav__cta" href="uso.html">Uso</a>
+            <a class="nav__cta" href="emprestimo.html">Empréstimo</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="use-page">
+      <div class="container">
+        <div class="use-card">
+          <h1>Agendamento para Uso de Equipamentos</h1>
+          <form id="form">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" required />
+
+            <label for="matricula_id">Matrícula/ID</label>
+            <input type="text" id="matricula_id" required />
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" required />
+
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" />
+
+            <label for="setor">Setor/Curso</label>
+            <input type="text" id="setor" />
+
+            <label>Sekecione o(s) equipamento(s) que deseja utilizar:</label>
+            <div class="equipamentos">
+              <label class="equipamento-card">
+                <input type="checkbox" name="equipamento" value="Impressora 3D" />
+                <img src="/assets/placeholder.jpeg" alt="Impressora 3D" />
+                <span class="equipamento-title">Impressora 3D</span>
+              </label>
+
+              <label class="equipamento-card">
+                <input type="checkbox" name="equipamento" value="Plotter" />
+                <img src="/assets/placeholder.jpeg" alt="Plotter" />
+                <span class="equipamento-title">Plotter</span>
+              </label>
+
+              <label class="equipamento-card">
+                <input type="checkbox" name="equipamento" value="Impressora" />
+                <img src="/assets/placeholder.jpeg" alt="Impressora" />
+                <span class="equipamento-title">Impressora</span>
+              </label>
+
+              <label class="equipamento-card">
+                <input type="checkbox" name="equipamento" value="Corte a Laser" />
+                <img src="/assets/placeholder.jpeg" alt="Corte a Laser" />
+                <span class="equipamento-title">Corte a Laser</span>
+              </label>
+            </div>
+
+            <label for="inicio">Início do uso</label>
+            <input type="datetime-local" id="inicio" required />
+
+            <label for="fim">Término do uso</label>
+            <input type="datetime-local" id="fim" />
+
+            <label for="finalidade">Finalidade</label>
+            <textarea id="finalidade" rows="3" required></textarea>
+
+            <label for="observacoes">Observações</label>
+            <textarea id="observacoes" rows="3"></textarea>
+
+            <label for="file">Anexe o termo de responsabilidade (PDF, máx. 10MB)</label>
+            <p class="hint">
+              Termo para assinatura:
+              <a class="form-link" href="https://docs.google.com/document/d/1jSsOVpzsi0kH93KLgw82PWwfZm3-3tnCjjFKtpxVO-I/edit?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Abrir documento"></a>.
+            </p>
+            <p class="hint">
+              Assine pelo Gov.br:
+              <a class="form-link form-link--gov" href="https://sso.acesso.gov.br/login?client_id=assinador.iti.br&authorization_id=19aa74d9070" target="_blank" rel="noopener noreferrer" aria-label="Acessar assinatura"></a>.
+            </p>
+            <input type="file" id="file" accept="application/pdf" required />
+
+            <div class="actions">
+              <button id="limpar" type="button" class="btn btn--ghost">Limpar</button>
+              <button id="btnEnviar" type="submit" class="btn btn--primary">Enviar</button>
+            </div>
+            <div class="msg" id="msg"></div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const navToggle = document.querySelector(".nav__toggle");
+      if (navToggle) {
+        navToggle.addEventListener("click", () => {
+          const isOpen = document.documentElement.classList.toggle("nav-open");
+          navToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+      }
+
+      const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbwjD1CqT0BNYEd3bCdCk3xIBfTHbjJW2WDlMEFbAcIaJnAJb_ZccqLBLwGCJ2eONwQMsw/exec";
+
+      const form = document.getElementById("form");
+      const btnEnviar = document.getElementById("btnEnviar");
+      const limpar = document.getElementById("limpar");
+      const msg = document.getElementById("msg");
+
+      limpar.addEventListener("click", () => {
+        form.reset();
+        msg.textContent = "";
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        msg.textContent = "";
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviando...";
+
+        try {
+          const equipamentosSelecionados = Array.from(
+            document.querySelectorAll('input[name="equipamento"]:checked')
+          )
+            .map((item) => item.value)
+            .join(", ");
+
+          if (!equipamentosSelecionados) {
+            throw new Error("Selecione ao menos um equipamento.");
+          }
+
+          const payload = {
+            nome: document.getElementById("nome").value,
+            matricula_id: document.getElementById("matricula_id").value,
+            email: document.getElementById("email").value,
+            telefone: document.getElementById("telefone").value,
+            setor: document.getElementById("setor").value,
+            equipamentos: equipamentosSelecionados,
+            inicio: document.getElementById("inicio").value,
+            fim: document.getElementById("fim").value,
+            finalidade: document.getElementById("finalidade").value,
+            observacoes: document.getElementById("observacoes").value
+          };
+
+          const fileInput = document.getElementById("file");
+          const file = fileInput.files[0];
+          if (!file) {
+            throw new Error("Anexe o PDF do termo.");
+          }
+          if (file.size > 10 * 1024 * 1024) {
+            throw new Error("Arquivo maior que 10MB.");
+          }
+          const reader = new FileReader();
+          const base64 = await new Promise((resolve) => {
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(file);
+          });
+          payload.file = base64;
+          payload.fileName = file.name;
+
+          await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          msg.style.color = "green";
+          msg.textContent = "✅ Solicitação de uso realizada com sucesso!";
+          form.reset();
+        } catch (err) {
+          msg.style.color = "red";
+          msg.textContent = "❌ Erro: " + (err.message || String(err));
+        } finally {
+          btnEnviar.disabled = false;
+          btnEnviar.textContent = "Enviar";
+        }
+      });
+    </script>
+  </body>
+</html>

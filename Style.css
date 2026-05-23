@@ -1355,6 +1355,38 @@
     scroll-snap-align: start;
   }
 
+  /* Show 4 cards per view when enough space */
+  @media (min-width: 1200px) {
+    .cards article {
+      flex: 0 0 calc((100% - 42px) / 4);
+      min-width: calc((100% - 42px) / 4);
+    }
+  }
+
+  /* 3 cards */
+  @media (min-width: 900px) and (max-width: 1199px) {
+    .cards article {
+      flex: 0 0 calc((100% - 28px) / 3);
+      min-width: calc((100% - 28px) / 3);
+    }
+  }
+
+  /* 2 cards */
+  @media (min-width: 560px) and (max-width: 899px) {
+    .cards article {
+      flex: 0 0 calc((100% - 14px) / 2);
+      min-width: calc((100% - 14px) / 2);
+    }
+  }
+
+  /* 1 card on small screens */
+  @media (max-width: 559px) {
+    .cards article {
+      flex: 0 0 100%;
+      min-width: 100%;
+    }
+  }
+
   @media (max-width: 980px) {
     .cards {
       gap: 12px;

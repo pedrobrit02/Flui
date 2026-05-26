@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function PeopleList({ members, onOpen }) {
   if (!members || members.length === 0) {
-    return <p style={{ padding: '24px' }}>Nenhum membro encontrado.</p>;
+    return <p style={{ padding: '24px', color: 'var(--muted)' }}>Carregando equipe...</p>;
   }
 
   return (
@@ -19,8 +19,7 @@ function PeopleList({ members, onOpen }) {
             .slice(0, 2)
             .map((s) => s[0])
             .join(''),
-          // Prevenção de erro caso image_path venha vazio
-          img: person.image_path && window.getImageUrl ? window.getImageUrl(person.image_path) : null,
+          img: window.getImageUrl(person.image_path),
           role: person.role,
           curriculum: person.summary || '',
           details: person.details || {},
@@ -33,23 +32,11 @@ function PeopleList({ members, onOpen }) {
             tabIndex="0"
             role="listitem"
             onClick={() => onOpen(base)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') onOpen(base);
-            }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onOpen(base); }}
           >
-            <div
-              className={base.img ? 'avatar avatar--photo' : 'avatar'}
-              aria-hidden="true"
-            >
+            <div className={base.img ? 'avatar avatar--photo' : 'avatar'} aria-hidden="true">
               {base.img ? (
-                <img
-                  src={base.img}
-                  alt={`Foto de ${base.name}`}
-                  width="76"
-                  height="76"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <img src={base.img} alt={`Foto de ${base.name}`} width="76" height="76" loading="lazy" />
               ) : (
                 <span>{base.initials}</span>
               )}
@@ -69,130 +56,50 @@ function PersonModal({ person, onClose }) {
 
   return (
     <div className="projectCardOverlay" onClick={onClose}>
-      <div
-        className="projectCardModal profileModal"
-        role="dialog"
-        aria-modal="true"
-        aria-label={`${person.name} — Currículo`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button type="button" className="projectCard__close" onClick={onClose}>
-          Fechar
-        </button>
+      <div className="projectCardModal" role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
+        <button type="button" className="projectCard__close" onClick={onClose}>Fechar</button>
+        
+        <h4>{person.name}</h4>
+        <p style={{ color: 'var(--purple)', fontWeight: '600', marginBottom: '20px' }}>{person.role}</p>
 
-        {/* Restaurando o cabeçalho bonitão com foto e resumo */}
-        <div className="profileHeader">
-          <div className="profileAvatar">
-            {person.img ? (
-              <img src={person.img} alt={person.name} width="96" height="96" />
-            ) : (
-              <span>{person.initials}</span>
-            )}
-          </div>
-          <div className="profileMeta">
-            <h4>{person.name}</h4>
-            {person.role && <p className="person__role">{person.role}</p>}
-            {person.curriculum && <p className="profileSummary">{person.curriculum}</p>}
-          </div>
+        <div className="projectCard__section">
+          <h5>Resumo</h5>
+          <p>{person.curriculum}</p>
         </div>
 
-        {/* Listando todas as seções dinamicamente se elas existirem no banco */}
-        {details.about && (
-          <div className="projectCard__section profileSection">
-            <h5>Sobre este perfil</h5>
-            <p>{details.about}</p>
+        {/* Mapeamento dinâmico dos campos extras do seu JSONB */}
+        {details && Object.keys(details).map((key) => (
+          <div key={key} className="projectCard__section">
+            <h5>{key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}</h5>
+            {Array.isArray(details[key]) ? (
+              <ul>
+                {details[key].map((item, i) => <li key={i}>{item}</li>)}
+              </ul>
+            ) : (
+              <p>{details[key]}</p>
+            )}
           </div>
-        )}
-
-        {details.experience && (
-          <div className="projectCard__section profileSection">
-            <h5>Experiência e projetos</h5>
-            <p>{details.experience}</p>
-          </div>
-        )}
-
-        {details.competencies && details.competencies.length > 0 && (
-          <div className="projectCard__section profileSection">
-            <h5>Competências</h5>
-            <div className="skillGrid">
-              {details.competencies.map((skill) => (
-                <span key={skill} className="profileBadge">{skill}</span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {details.expanded_tech_skills && details.expanded_tech_skills.length > 0 && (
-          <div className="projectCard__section profileSection">
-            <h5>Tecnologias Expandidas</h5>
-            <div className="skillGrid">
-              {details.expanded_tech_skills.map((skill) => (
-                <span key={skill} className="profileBadge">{skill}</span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {details.education && details.education.length > 0 && (
-          <div className="projectCard__section profileSection">
-            <h5>Formação</h5>
-            <ul>{details.education.map((edu) => <li key={edu}>{edu}</li>)}</ul>
-          </div>
-        )}
-
-        {details.certifications && details.certifications.length > 0 && (
-          <div className="projectCard__section profileSection">
-            <h5>Certificações</h5>
-            <ul>{details.certifications.map((cert) => <li key={cert}>{cert}</li>)}</ul>
-          </div>
-        )}
-
-        {details.languages && details.languages.length > 0 && (
-          <div className="projectCard__section profileSection">
-            <h5>Idiomas</h5>
-            <ul>{details.languages.map((lang) => <li key={lang}>{lang}</li>)}</ul>
-          </div>
-        )}
-
-        {details.recognitions && details.recognitions.length > 0 && (
-          <div className="projectCard__section profileSection">
-            <h5>Reconhecimentos</h5>
-            <ul>{details.recognitions.map((rec) => <li key={rec}>{rec}</li>)}</ul>
-          </div>
-        )}
-
-        {details.events && details.events.length > 0 && (
-          <div className="projectCard__section profileSection">
-            <h5>Eventos</h5>
-            <ul>{details.events.map((ev) => <li key={ev}>{ev}</li>)}</ul>
-          </div>
-        )}
+        ))}
       </div>
     </div>
   );
 }
 
-// Aceitando 'group' e 'type' para garantir que funcione não importa como o main.jsx chame
-export default function PeopleApp({ group, type }) {
+export default function PeopleApp({ type }) {
   const [members, setMembers] = useState([]);
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     async function loadTeam() {
-      // Usa group ou type (o que estiver preenchido no main.jsx)
-      const filtro = group || type;
-      if (window.api && window.api.getTeam && filtro) {
-        try {
-          const data = await window.api.getTeam(filtro);
-          setMembers(data || []);
-        } catch (err) {
-          console.error(`Erro ao carregar equipe ${filtro}:`, err);
-          setMembers([]);
-        }
+      try {
+        const data = await window.api.getTeam(type);
+        setMembers(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Erro ao carregar equipe:", err);
       }
     }
     loadTeam();
-  }, [group, type]);
+  }, [type]);
 
   return (
     <>

@@ -10,4 +10,4 @@ package-lock.json
 
 # Variáveis de ambiente (Segurança!)
 .env
-.env.local
+.env.localgit status

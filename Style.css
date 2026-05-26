@@ -1437,22 +1437,20 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-@media (min-width: 1161px) {
-  .nav__menu {
-    position: absolute; 
-    top: 100%;
-    right: 0;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
+.nav__menu.nav__menu--open {
+  display: flex !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 9999 !important;
+}
 
-  .nav__menu--open {
-    opacity: 1 !important;
-    pointer-events: auto !important;
+@media (max-width: 1160px) {
+  .nav__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
   }
 }

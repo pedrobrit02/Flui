@@ -1436,9 +1436,6 @@ input[type="file"]::file-selector-button:hover {
     justify-content: flex-end;
   }
 }
-/* =========================================
-   1. CORREÇÃO DO E-MAIL (Sem borda, na esquerda)
-   ========================================= */
 .eventCard__mailto {
   display: inline-flex !important;
   align-items: center !important;
@@ -1455,26 +1452,23 @@ input[type="file"]::file-selector-button:hover {
   align-items: flex-start !important;
 }
 
-/* =========================================
-   2. CORREÇÃO DOS CARDS NO MOBILE (Texto na esquerda)
-   ========================================= */
-@media (max-width: 768px) {
-  /* Alinha os textos à esquerda */
-  .section__head, .projectCard, .card, .eventCard {
-    text-align: left !important;
-  }
-  
-  /* Volta os cards para o tamanho/alinhamento normal da tela */
-  .projects__grid, .cards, .peopleGrid {
-    grid-template-columns: 1fr !important;
-    justify-items: center !important; 
-  }
+.projects__grid, .cards, .peopleGrid {
+  align-items: stretch !important;
 }
 
-/* =========================================
-   3. CORREÇÃO DA NAVBAR (Sumiu no PC / Não abre no Mobile)
-   ========================================= */
-/* PC: Navbar sempre visível e botão escondido */
+.projectCard, .card, .person {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  min-height: 250px !important;
+}
+
+.btn, .form-link, .nav__cta, button {
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+
 @media (min-width: 1161px) {
   .nav__menu {
     display: flex !important;
@@ -1484,7 +1478,6 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-/* Mobile: Botão visível, Menu escondido até clicar */
 @media (max-width: 1160px) {
   .nav__toggle {
     display: inline-grid !important;
@@ -1493,25 +1486,22 @@ input[type="file"]::file-selector-button:hover {
   }
   
   .nav__menu {
-    display: none !important; /* Esconde por padrão */
+    display: none !important;
+  }
+  
+  body .nav__menu.nav__menu--open,
+  html.nav-open .nav__menu {
+    display: flex !important;
+    flex-direction: column !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     position: fixed !important;
     inset: 70px 14px auto 14px !important;
-    flex-direction: column !important;
     background: #ffffff !important;
     padding: 18px !important;
     border-radius: 18px !important;
     box-shadow: 0 18px 55px rgba(10, 10, 20, 0.12) !important;
     z-index: 9998 !important;
-  }
-  
-  /* A classe que o seu JS joga no menu para abrir */
-  .nav__menu.nav__menu--open {
-    display: grid !important; 
-  }
-  
-  .nav__link, .nav__cta {
-    width: 100% !important;
-    text-align: center !important;
-    justify-content: center !important;
   }
 }

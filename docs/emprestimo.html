@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>FLUI — Solicitação de Empréstimo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" crossorigin href="./assets/Style-CT2V8whD.css">
+  </head>
+  <body>
+    <header class="site-header" id="topo">
+      <nav class="nav" aria-label="Navegação principal">
+        <div class="container nav__inner">
+          <a class="brand" href="index.html" aria-label="Ir para o início">
+            <span class="brand__symbol" aria-hidden="true"></span>
+            <span class="brand__text">FLUI</span>
+          </a>
+
+          <button
+            class="nav__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span class="sr-only">Abrir menu</span>
+            <span class="nav__toggleLines" aria-hidden="true"></span>
+          </button>
+
+          <div class="nav__menu" id="nav-menu">
+            <a class="nav__link" href="#o-que-e">O que é</a>
+            <a class="nav__link" href="#o-que-oferecemos">O que oferecemos</a>
+            <a class="nav__link" href="#Utilizar equipamentos">Equipamentos</a>
+            <a class="nav__link" href="#requisitos">Requisitos</a>
+            <a class="nav__link" href="#eventos">Eventos</a>
+            <a class="nav__link" href="#documentacao-flui">Documentos</a>
+            <a class="nav__link" href="#docentes">Docentes</a>
+            <a class="nav__link" href="#alunos">Bolsas</a>
+            <a class="nav__cta" href="uso.html">Uso</a>
+            <a class="nav__cta" href="emprestimo.html">Empréstimo</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="loan-page">
+      <div class="container">
+        <div class="loan-card">
+          <h1>Solicitação de Empréstimo</h1>
+
+          <form id="form">
+        <label for="nome">Nome</label>
+        <input id="nome" required />
+
+        <label for="matricula">Matrícula</label>
+        <input id="matricula" required />
+
+        <label for="email">Email</label>
+        <input id="email" required />
+
+        <label for="telefone">Telefone</label>
+        <input id="telefone" required />
+
+        <label for="setor">Setor</label>
+        <input id="setor" required />
+
+        <details class="kit">
+          <summary>Itens</summary>
+          <div id="itens-container"></div>
+        </details>
+
+        <label for="retirada">Data e hora da retirada *</label>
+        <input id="retirada" type="datetime-local" required />
+
+        <label for="devolucao">Data e hora da devolução</label>
+        <input id="devolucao" type="datetime-local" />
+
+        <label for="finalidade">Finalidade *</label>
+        <textarea id="finalidade" required></textarea>
+
+        <label for="file">
+          Anexar termo (PDF até 10MB)
+          <br />
+          <a
+            class="form-link"
+            href="https://docs.google.com/document/d/1LptPsVLLy4AN7NUENw78OKmCTy1TPMct8pWnDBcCZmw/edit"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Abrir termo"
+          ></a>
+        </label>
+        <input type="file" id="file" accept="application/pdf" required />
+
+        <label for="observacoes">Observações</label>
+        <textarea id="observacoes"></textarea>
+
+            <div class="actions">
+              <button type="button" class="btn btn--ghost ghost" id="limpar">Limpar</button>
+              <button type="button" class="btn btn--primary" id="btnEnviar">Enviar</button>
+            </div>
+
+            <p id="msg"></p>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const navToggle = document.querySelector(".nav__toggle");
+      if (navToggle) {
+        navToggle.addEventListener("click", () => {
+          const isOpen = document.documentElement.classList.toggle("nav-open");
+          navToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+      }
+
+      const SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbzesiNEP0jY6PN9odz8F6mrGqQjsEmRR4jgh95hPtEHN7qFL-Qi46vIK_9I2MWe3I1nyg/exec";
+
+      const itens = [
+        ["Cabo USB", 26],
+        ["Adaptador", 3],
+        ["protobord Mb 102", 16],
+        ["protobord menor 400 pontos", 23],
+        ["sensor TCRT5000", 4],
+        ["Potenciômetro 10k", 37],
+        ["Buzzer", 27],
+        ["Resistor 1k", 203],
+        ["Push button", 138],
+        ["Diodo 1N4007", 84],
+        ["Resistor 330", 119],
+        ["led verde", 116],
+        ["led amarelo", 110],
+        ["led vermelho", 116],
+        ["kit braço robótico e chassi", 4],
+        ["reles 4 canais", 5],
+        ["reles 2 canal", 4],
+        ["reles 1 canal", 4],
+        ["sensor de chuva", 4],
+        ["RFID", 7],
+        ["Resistor 470 Ohm", 246],
+        ["Resistor 220 ohms", 98],
+        ["resistor 4.7k Ohm", 50],
+        ["resistor 47k Ohm", 50],
+        ["resistor 47 Ohm", 50],
+        ["resistor 10 Ohm", 100],
+        ["resistor 2.2k Ohm", 50],
+        ["Resistor 220k Ohm", 50],
+        ["Resistor 22k Ohm", 50],
+        ["Resistor 470 Ohm", 75],
+        ["Resistor 100 Ohm", 100],
+        ["Resistor 470k Ohm", 50],
+        ["Resistor 10k Ohm", 100],
+        ["Resistor 1M Ohm", 50],
+        ["Resistor 20 Ohm", 50],
+        ["Resistor 100k Ohm", 50],
+        ["estação conjugada de solda", 2],
+        ["Apontador laser", 1],
+        ["bateria de 9v", 3],
+        ["scanlizard", 1],
+        ["Multímetro", 4],
+        ["conjunto de pilhas 1,5V", 1],
+        ["ceramic Heating", 1],
+        ["cabos VGA", 4],
+        ["cabos Usb de impressora", 4],
+        ["cabo HDMI", 1],
+        ["tab4 galaxy", 2],
+        ["Mesa digitalizadora", 1],
+        ["ferro de solda USB", 3],
+        ["caixa de som multimídia", 1],
+        ["controlador de motor", 2],
+        ["módulo de wifi ESP", 4],
+        ["Módulo sem fio NRF", 4],
+        ["Kit Raspberry pi 4", 1],
+        ["Motor de passo", 8],
+        ["servomotores", 8],
+        ["Arduino", 20],
+        ["ESP", 5],
+        ["LCD 16X2", 12],
+        ["controle e receptor", 9],
+        ["sensor umidade do solo", 4],
+        ["sensor de temperatura", 4],
+        ["LDR (Pacote)", 1],
+        ["sensore seguidor de linha", 5],
+        ["ponte H", 4],
+        ["sensor ultra-sônico", 10],
+        ["Relógio de tempo", 9],
+        ["display de 7 segmentos", 14],
+        ["teclado 4x4", 3],
+        ["Kit de robótica básico", 1],
+        ["placa de desenvolvimento", 5]
+      ];
+
+      const itensContainer = document.getElementById("itens-container");
+      const form = document.getElementById("form");
+      const msg = document.getElementById("msg");
+      const btnEnviar = document.getElementById("btnEnviar");
+      const limpar = document.getElementById("limpar");
+
+      itens.forEach(([nome, max]) => {
+        itensContainer.insertAdjacentHTML(
+          "beforeend",
+          `
+          <div class="item-row">
+            <div class="item-left">
+              <input type="checkbox" class="item" data-item="${nome}" data-max="${max}">
+              <span>${nome} (${max})</span>
+            </div>
+
+            <div class="quantidade-box">
+              <button type="button" class="menos">-</button>
+              <input type="number" value="1" min="1">
+              <button type="button" class="mais">+</button>
+            </div>
+          </div>
+        `
+        );
+      });
+
+      document.addEventListener("change", (e) => {
+        if (e.target.classList.contains("item")) {
+          const box = e.target.closest(".item-row").querySelector(".quantidade-box");
+          box.style.display = e.target.checked ? "flex" : "none";
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("mais")) {
+          const row = e.target.closest(".item-row");
+          const input = row.querySelector('input[type="number"]');
+          const max = parseInt(row.querySelector(".item").dataset.max, 10);
+          if (parseInt(input.value, 10) < max) input.value++;
+        }
+
+        if (e.target.classList.contains("menos")) {
+          const row = e.target.closest(".item-row");
+          const input = row.querySelector('input[type="number"]');
+          if (parseInt(input.value, 10) > 1) input.value--;
+        }
+      });
+
+      limpar.addEventListener("click", () => {
+        form.reset();
+        document.querySelectorAll(".quantidade-box").forEach((box) => {
+          box.style.display = "none";
+        });
+        msg.textContent = "";
+      });
+
+      function coletarItens() {
+        const lista = [];
+        document.querySelectorAll(".item:checked").forEach((cb) => {
+          const nome = cb.dataset.item;
+          const qtd = cb.closest(".item-row").querySelector('input[type="number"]').value;
+          lista.push(`${nome} (${qtd})`);
+        });
+        return lista.join(", ");
+      }
+
+      function toBase64(file) {
+        return new Promise((resolve, reject) => {
+          const r = new FileReader();
+          r.onload = () => resolve(r.result.split(",")[1]);
+          r.onerror = reject;
+          r.readAsDataURL(file);
+        });
+      }
+
+      btnEnviar.addEventListener("click", async () => {
+        btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviando...";
+        msg.textContent = "";
+
+        try {
+          const file = document.getElementById("file").files[0];
+          if (!file) throw new Error("Anexe o PDF.");
+          if (file.size > 10 * 1024 * 1024) throw new Error("Arquivo acima de 10MB.");
+
+          const itensSelecionados = coletarItens();
+          if (!itensSelecionados) throw new Error("Selecione ao menos um item.");
+
+          const base64 = await toBase64(file);
+
+          const payload = {
+            nome: document.getElementById("nome").value,
+            matricula_id: document.getElementById("matricula").value,
+            email: document.getElementById("email").value,
+            telefone: document.getElementById("telefone").value,
+            setor: document.getElementById("setor").value,
+            retirada: document.getElementById("retirada").value,
+            devolucao: document.getElementById("devolucao").value,
+            finalidade: document.getElementById("finalidade").value,
+            observacoes: document.getElementById("observacoes").value,
+            itens: itensSelecionados,
+            file: base64,
+            fileName: file.name
+          };
+
+          await fetch(SCRIPT_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(payload)
+          });
+
+          msg.textContent = "✅ Enviado com sucesso.";
+          msg.style.color = "green";
+          form.reset();
+          document.querySelectorAll(".quantidade-box").forEach((box) => {
+            box.style.display = "none";
+          });
+        } catch (e) {
+          msg.textContent = "❌ " + (e.message || String(e));
+          msg.style.color = "red";
+        } finally {
+          btnEnviar.disabled = false;
+          btnEnviar.textContent = "Enviar";
+        }
+      });
+    </script>
+  </body>
+</html>

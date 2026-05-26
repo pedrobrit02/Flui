@@ -1436,57 +1436,51 @@ input[type="file"]::file-selector-button:hover {
     justify-content: flex-end;
   }
 }
-.nav__menu {
-  display: flex;
-  position: fixed;
-  inset: 70px 14px auto 14px;
-  flex-direction: column;
-  gap: 12px;
-  padding: 24px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(12, 12, 16, 0.12);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-  transform: translateY(-10px);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
-}
-
-.nav__menu.nav__menu--open {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.nav__link {
-  padding: 16px;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--ink);
-  text-align: center;
-  border-radius: 12px;
-  background: rgba(122, 44, 255, 0.05);
-  transition: background 0.2s ease;
-}
-
-.nav__link:hover {
-  background: rgba(122, 44, 255, 0.15);
-}
 @media (max-width: 768px) {
+  .projects__grid, .cards, .peopleGrid {
+    justify-items: center !important;
+  }
+}
 
-  body, .container, .section__head, .projectCard, .card, .eventCard, .person, .footer__inner {
-    text-align: left !important;
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
+@media (max-width: 1160px) {
+  .nav__toggle { 
+    display: inline-grid !important; 
+    place-items: center; 
+  }
+  
+  .nav__menu {
+    position: fixed;
+    inset: 70px 14px auto 14px;
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid rgba(12, 12, 16, 0.12);
+    box-shadow: var(--shadow);
+    z-index: 2000;
   }
 
-  h1, h2, h3, h4, h5, p {
-    text-align: left !important;
+  .nav__menu.nav__menu--open {
+    display: grid !important; 
   }
 
-  .projects__grid, .cards, .peopleGrid, .eventMailForm__grid {
-    justify-items: start !important;
+  .nav__link {
+    width: 100%;
+    justify-content: center;
   }
+}
+
+@media (min-width: 1161px) {
+  .nav__menu {
+    display: flex !important;
+  }
+  .nav__toggle {
+    display: none !important;
+  }
+}
+
+.nav__menu {
+  z-index: 2000;
 }

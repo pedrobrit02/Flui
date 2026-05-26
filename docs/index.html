@@ -16,22 +16,22 @@
       rel="stylesheet"
     />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    
-    <style>
-      /* Celular: Esconde as setas do carrossel e garante rolagem natural */
-      @media (max-width: 768px) {
-        .carousel__nav { display: none !important; }
-        .cards { overflow-x: auto; display: flex; flex-wrap: nowrap; gap: 16px; padding-bottom: 10px; }
-      }
-      /* Computador: Esconde o botão do menu hambúrguer e força o menu a aparecer */
-      @media (min-width: 769px) {
-        .nav__toggle { display: none !important; }
-        .nav__menu { display: flex !important; }
-      }
-    </style>
     <script type="module" crossorigin src="./assets/main-DYm5sSDi.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/Style-BKg-LcFj.css">
   </head>
+  <script>
+  // Controle do Menu Mobile
+  const toggleBtn = document.querySelector('.nav__toggle');
+  const navMenu = document.querySelector('.nav__menu');
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', !expanded);
+      navMenu.classList.toggle('nav__menu--open'); // Adiciona/remove classe de visibilidade
+    });
+  }
+</script>
 
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -48,20 +48,20 @@
 
           <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
             <span class="sr-only">Abrir menu</span>
-            <span class="nav__toggleLines" aria-hidden="true">☰</span>
+            <span class="nav__toggleLines" aria-hidden="true"></span>
           </button>
 
-        <div class="nav__menu" id="nav-menu">
-          <a class="nav__link" href="./index.html#o-que-e">O que é</a>
-          <a class="nav__link" href="./index.html#o-que-oferecemos">O que oferecemos</a>
-          <a class="nav__link" href="./index.html#Utilizar-equipamentos">Equipamentos</a>
-          <a class="nav__link" href="./index.html#eventos">Eventos</a>
-          <a class="nav__link" href="./index.html#documentacao-flui">Documentos</a>
-          <a class="nav__link" href="./index.html#docentes">Docentes</a>
-          <a class="nav__link" href="./index.html#alunos">Bolsistas</a>
-          <a class="nav__cta" href="./uso.html">Uso</a>
-          <a class="nav__cta" href="./emprestimo.html">Empréstimo</a>
-        </div>
+          <div class="nav__menu" id="nav-menu">
+            <a class="nav__link" href="#o-que-e">O que é</a>
+            <a class="nav__link" href="#o-que-oferecemos">O que oferecemos</a>
+            <a class="nav__link" href="#Utilizar-equipamentos">Utilizar os equipamentos</a>
+            <a class="nav__link" href="#eventos">Eventos</a>
+            <a class="nav__link" href="#documentacao-flui">Documentos</a>
+            <a class="nav__link" href="#docentes">Docentes</a>
+            <a class="nav__link" href="#alunos">Bolsistas</a>
+            <a class="nav__cta" href="/Flui/uso.html">Uso</a>
+            <a class="nav__cta" href="/Flui/emprestimo.html">Empréstimo</a>
+          </div>
         </div>
       </nav>
     </header>
@@ -122,8 +122,8 @@
               Para agendar o uso dos equipamentos ou solicitar empréstimo de materiais, os formulários estão disponíveis nos botões abaixo.
             </p>
             <p class="section__actions">
-              <a class="btn btn--primary" href="./uso.html">Agendamento para uso de equipamentos</a>
-              <a class="btn btn--primary" href="./emprestimo.html">Solicitação de empréstimo</a>
+              <a class="btn btn--primary" href="/Flui/uso.html">Agendamento para uso de equipamentos</a>
+              <a class="btn btn--primary" href="/Flui/emprestimo.html">Solicitação de empréstimo</a>
             </p>
           </div>
         </div>
@@ -224,19 +224,6 @@
         </div>
       </section>
     </main>
-
-    <script>
-      const toggleBtn = document.querySelector('.nav__toggle');
-      const navMenu = document.querySelector('.nav__menu');
-
-      if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-          const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-          toggleBtn.setAttribute('aria-expanded', !expanded);
-          navMenu.classList.toggle('nav__menu--open');
-        });
-      }
-    </script>
 
     <script>
       (() => {

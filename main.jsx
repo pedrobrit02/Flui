@@ -5,9 +5,6 @@ import ReactDOM from 'react-dom/client';
 import ProjectCard from './card.jsx';
 import PeopleApp from './PeopleApp.jsx';
 
-// ==========================================
-// 1. CARROSSEL DE SERVIÇOS / TECNOLOGIAS
-// ==========================================
 function ServicesCarousel() {
   const [services, setServices] = React.useState([]);
 
@@ -16,16 +13,19 @@ function ServicesCarousel() {
       try {
         const data = await window.api.getServices();
         setServices(Array.isArray(data) ? data : []);
-        if (window.initCarousel) {
-          setTimeout(window.initCarousel, 100); 
-        }
       } catch (err) {
         console.error("Erro ao carregar serviços:", err);
-        setServices([]);
       }
     }
     if (window.api) loadServices();
   }, []);
+
+  // UseEffect que monitora se os serviços carregaram para só então rodar o carrossel
+  React.useEffect(() => {
+    if (services.length > 0 && window.initCarousel) {
+      window.initCarousel();
+    }
+  }, [services]);
 
   if (services.length === 0) {
     return <p style={{ padding: "24px", color: "var(--muted)" }}>Carregando tecnologias do laboratório...</p>;
@@ -48,10 +48,6 @@ function ServicesCarousel() {
     </div>
   );
 }
-
-// ==========================================
-// 2. SEÇÃO DE PROJETOS EM DESENVOLVIMENTO
-// ==========================================
 function ProjectsSection() {
   const [projects, setProjects] = React.useState([]);
 
@@ -106,10 +102,6 @@ function ProjectsSection() {
     </div>
   );
 }
-
-// ==========================================
-// 4. INICIALIZAÇÃO DE TODOS OS COMPONENTES
-// ==========================================
 if (!window.api) {
   console.error("Erro CRÍTICO: window.api não foi encontrado!");
 } else {

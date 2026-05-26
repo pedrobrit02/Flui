@@ -224,110 +224,112 @@
     </main>
 
     <script>
-      (() => {
-        const form = document.getElementById("form-eventos-flui");
-        const assuntoInput = document.getElementById("event-assunto");
-        const subjectHidden = document.getElementById("eventMailSubject");
-        const notify = document.getElementById("form-notify");
+        (() => {
+          const toggleBtn = document.querySelector('.nav__toggle');
+          const navMenu = document.querySelector('.nav__menu');
 
-        const showNotify = (msg, ok = true) => {
-          notify.textContent = msg;
-          notify.hidden = false;
-          notify.style.display = "block";
-          notify.style.color = ok ? "green" : "red";
-          setTimeout(() => {
-            notify.style.display = "none";
-            notify.hidden = true;
-          }, 5000);
-        };
-        
-        if (form) {
-            form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            if (form.website.value !== "") return;
+          function toggleMenu() {
+            const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+            toggleBtn.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('nav__menu--open');
+          }
 
-            subjectHidden.value = assuntoInput.value || "Solicitação FLUI";
-
-            const btn = form.querySelector("button");
-            btn.disabled = true;
-
-            try {
-                const fd = new FormData(form);
-                const res = await fetch(form.action, { method: "POST", body: fd });
-                if (res.ok) {
-                showNotify("E-mail enviado com sucesso!");
-                form.reset();
-                if (window.grecaptcha) window.grecaptcha.reset();
-                } else {
-                showNotify("Erro ao enviar.", false);
-                }
-            } catch (err) {
-                console.error(err);
-                showNotify("Erro de conexão.", false);
-            }
-
-            btn.disabled = false;
+          if (toggleBtn) {
+            toggleBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              toggleMenu();
             });
-        }
-      })();
-    </script>
+          }
 
-    <script>
-      function initCarousel() {
-        const carousel = document.querySelector(".cards");
-        const prevButton = document.querySelector(".carousel__nav--prev");
-        const nextButton = document.querySelector(".carousel__nav--next");
-        if (!carousel) return;
+          document.addEventListener('click', (e) => {
+            if (navMenu?.classList.contains('nav__menu--open') && !navMenu.contains(e.target) && e.target !== toggleBtn) {
+              toggleMenu();
+            }
+          });
 
-        let autoScrollTimer = null;
-        const autoScrollInterval = 3000;
+          const form = document.getElementById("form-eventos-flui");
+          const assuntoInput = document.getElementById("event-assunto");
+          const subjectHidden = document.getElementById("eventMailSubject");
+          const notify = document.getElementById("form-notify");
 
-        const scrollAmount = () => {
-          const card = carousel.querySelector("article") || carousel.firstElementChild;
-          if (!card) return carousel.clientWidth;
-          const gap = parseInt(getComputedStyle(carousel).gap) || 14;
-          return card.clientWidth + gap;
-        };
-
-        const scrollTo = (offset) => {
-          const maxScroll = Math.max(carousel.scrollWidth - carousel.clientWidth, 0);
+          const showNotify = (msg, ok = true) => {
+            notify.textContent = msg;
+            notify.hidden = false;
+            notify.style.display = "block";
+            notify.style.color = ok ? "green" : "red";
+            setTimeout(() => { notify.style.display = "none"; notify.hidden = true; }, 5000);
+          };
           
-          const currentLeft = Math.ceil(carousel.scrollLeft);
+          if (form) {
+            form.addEventListener("submit", async (e) => {
+              e.preventDefault();
+              
+              if (window.grecaptcha && grecaptcha.getResponse().length === 0) {
+                showNotify("Por favor, marque a caixa do reCAPTCHA.", false);
+                return;
+              }
 
-          if (currentLeft >= maxScroll - 5 && offset > currentLeft) {
-            carousel.scrollTo({ left: 0, behavior: "smooth" });
-            return;
+              if (form.website.value !== "") return;
+              subjectHidden.value = assuntoInput.value || "Solicitação FLUI";
+              const btn = form.querySelector("button");
+              btn.disabled = true;
+
+              try {
+                  const fd = new FormData(form);
+                  const res = await fetch(form.action, { method: "POST", body: fd });
+                  if (res.ok) {
+                    showNotify("E-mail enviado com sucesso!");
+                    form.reset();
+                    grecaptcha.reset();
+                  } else {
+                    showNotify("Erro ao enviar.", false);
+                  }
+              } catch (err) {
+                  console.error(err);
+                  showNotify("Erro de conexão.", false);
+              } finally {
+                  btn.disabled = false;
+              }
+            });
           }
+        })();
 
-          if (currentLeft <= 5 && offset < currentLeft) {
-            carousel.scrollTo({ left: maxScroll, behavior: "smooth" });
-            return;
-          }
+        function initCarousel() {
+          const carousel = document.querySelector(".cards");
+          const prevButton = document.querySelector(".carousel__nav--prev");
+          const nextButton = document.querySelector(".carousel__nav--next");
+          if (!carousel) return;
 
-          carousel.scrollTo({ left: offset, behavior: "smooth" });
-        };
+          let autoScrollTimer = null;
+          const autoScrollInterval = 3000;
 
-        const scrollNext = () => scrollTo(carousel.scrollLeft + scrollAmount());
-        const scrollPrev = () => scrollTo(carousel.scrollLeft - scrollAmount());
+          const scrollAmount = () => {
+            const card = carousel.querySelector("article") || carousel.firstElementChild;
+            if (!card) return carousel.clientWidth;
+            const gap = parseInt(getComputedStyle(carousel).gap) || 14;
+            return card.clientWidth + gap;
+          };
 
-        const startAutoScroll = () => {
-          stopAutoScroll();
-          autoScrollTimer = setInterval(scrollNext, autoScrollInterval);
-        };
+          const scrollTo = (offset) => {
+            const maxScroll = Math.max(carousel.scrollWidth - carousel.clientWidth, 0);
+            const currentLeft = Math.ceil(carousel.scrollLeft);
+            if (currentLeft >= maxScroll - 5 && offset > currentLeft) { carousel.scrollTo({ left: 0, behavior: "smooth" }); return; }
+            if (currentLeft <= 5 && offset < currentLeft) { carousel.scrollTo({ left: maxScroll, behavior: "smooth" }); return; }
+            carousel.scrollTo({ left: offset, behavior: "smooth" });
+          };
 
-        const stopAutoScroll = () => {
-          if (autoScrollTimer) clearInterval(autoScrollTimer);
-        };
+          const scrollNext = () => scrollTo(carousel.scrollLeft + scrollAmount());
+          const scrollPrev = () => scrollTo(carousel.scrollLeft - scrollAmount());
+          const startAutoScroll = () => { stopAutoScroll(); autoScrollTimer = setInterval(scrollNext, autoScrollInterval); };
+          const stopAutoScroll = () => { if (autoScrollTimer) clearInterval(autoScrollTimer); };
 
-        if (nextButton) nextButton.onclick = () => { scrollNext(); startAutoScroll(); };
-        if (prevButton) prevButton.onclick = () => { scrollPrev(); startAutoScroll(); };
-
-        carousel.onmouseenter = stopAutoScroll;
-        carousel.onmouseleave = startAutoScroll;
-        startAutoScroll();
-      }
-      
-      window.initCarousel = initCarousel;
+          if (nextButton) nextButton.onclick = () => { scrollNext(); startAutoScroll(); };
+          if (prevButton) prevButton.onclick = () => { scrollPrev(); startAutoScroll(); };
+          carousel.onmouseenter = stopAutoScroll;
+          carousel.onmouseleave = startAutoScroll;
+          startAutoScroll();
+        }
+        window.initCarousel = initCarousel;
     </script>
 
     <script type="module" src="/main.jsx"></script>

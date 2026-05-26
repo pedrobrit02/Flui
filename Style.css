@@ -137,7 +137,7 @@
     margin-inline: auto;
   }
   
-  /* Header + navbar */
+
   .site-header {
     position: sticky;
     top: 0;
@@ -1503,7 +1503,6 @@
     scroll-snap-align: start;
   }
 
-  /* Show 4 cards per view when enough space */
   @media (min-width: 1200px) {
     .cards article {
       flex: 0 0 calc((100% - 42px) / 4);
@@ -1511,7 +1510,6 @@
     }
   }
 
-  /* 3 cards */
   @media (min-width: 900px) and (max-width: 1199px) {
     .cards article {
       flex: 0 0 calc((100% - 28px) / 3);
@@ -1519,7 +1517,6 @@
     }
   }
 
-  /* 2 cards */
   @media (min-width: 560px) and (max-width: 899px) {
     .cards article {
       flex: 0 0 calc((100% - 14px) / 2);
@@ -1527,7 +1524,6 @@
     }
   }
 
-  /* 1 card on small screens */
   @media (max-width: 559px) {
     .cards article {
       flex: 0 0 100%;
@@ -1702,7 +1698,6 @@
     }
   }
   
-  /* Requirements list cards */
   .listGrid {
     margin-top: 22px;
     display: grid;
@@ -1724,7 +1719,6 @@
     box-shadow: 0 18px 45px rgba(10, 10, 20, 0.06);
   }
     
-  /* Events */
   .eventCard {
     position: relative;
     margin-top: 22px;
@@ -1773,7 +1767,6 @@
   }
 
 
-/* Form buttons and links */
 .form-link {
   display: inline-flex;
   align-items: center;
@@ -1782,7 +1775,7 @@
   padding: 12px 16px;
   border-radius: 12px;
   background: var(--grad-2);
-  color: transparent; /* Hide text */
+  color: transparent; 
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
@@ -1800,7 +1793,7 @@
 .form-link::before {
   content: "📄";
   font-size: 1.2rem;
-  color: #fff; /* Show icon in white */
+  color: #fff; 
 }
 
 .form-link--gov::before {
@@ -1815,7 +1808,6 @@
   background: linear-gradient(135deg, #1557b0, #3367d6);
 }
 
-/* File input styling */
 input[type="file"] {
   display: inline-block;
   padding: 12px 16px;
@@ -1850,7 +1842,6 @@ input[type="file"]::file-selector-button:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-/* Email link styling */
 .eventCard__mailto {
   display: inline-flex;
   align-items: center;
@@ -1983,7 +1974,6 @@ input[type="file"]::file-selector-button:hover {
     opacity: 0;
   }
   
-  /* People */
   .peopleGrid {
     margin-top: 22px;
     display: grid;
@@ -2068,7 +2058,6 @@ input[type="file"]::file-selector-button:hover {
     font-size: 1.05rem;
   }
   
-  /* Footer */
   .footer {
     padding: 34px 0;
     border-top: 1px solid rgba(12, 12, 16, 0.08);
@@ -2124,7 +2113,6 @@ input[type="file"]::file-selector-button:hover {
     box-shadow: var(--focus);
   }
   
-  /* Form pages: emprestimo + uso */
   .loan-page,
   .use-page {
     padding: clamp(52px, 7vw, 86px) 0;
@@ -2410,44 +2398,41 @@ input[type="file"]::file-selector-button:hover {
       justify-content: flex-end;
     }
   }
-/* Para celulares (telas menores que 768px) */
+
 @media (max-width: 768px) {
   .container {
-    padding: 0 20px; /* Dá um respiro nas laterais */
+    padding: 0 20px; 
   }
 
   .hero__title {
-    font-size: 2rem; /* Diminui a fonte do título */
+    font-size: 2rem; 
   }
 
   .nav__menu {
-    display: none; /* Esconde o menu para abrir no botão toggle */
+    display: none; 
   }
 
   .cards {
-    flex-direction: column; /* Coloca os cards um embaixo do outro */
+    flex-direction: column; 
     align-items: center;
   }
 }
-/* --- AJUSTES DE RESPONSIVIDADE MOBILE --- */
 
 @media (max-width: 768px) {
-  /* 1. Ajuste do Carrossel/Cards para toque */
   .cards {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     gap: 16px;
-    padding-bottom: 10px; /* Espaço para o scroll não colar no fundo */
+    padding-bottom: 10px;
   }
 
   .cards > * {
-    flex: 0 0 85%; /* Cada card ocupa 85% da largura da tela */
+    flex: 0 0 85%;
     scroll-snap-align: center;
   }
 
-  /* 2. Ajuste de texto para leitura mobile */
   p {
     text-align: justify;
     text-justify: inter-word;

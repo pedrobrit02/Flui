@@ -1425,32 +1425,47 @@ input[type="file"]::file-selector-button:hover {
   border-radius: 10px;
   background: rgba(250, 249, 255, 0.75);
 }
-@media (max-width: 600px) {
-  .item-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .quantidade-box {
-    width: 100%;
-    justify-content: flex-end;
-  }
+.nav__menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #ffffff;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9999;
 }
 
 .nav__menu.nav__menu--open {
-  display: flex !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  z-index: 9999 !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-@media (max-width: 1160px) {
+.nav__toggle {
+  display: block;
+  z-index: 10000;
+  cursor: pointer;
+}
+
+@media (min-width: 1160px) {
   .nav__menu {
+    position: static;
+    flex-direction: row;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+  }
+  .nav__toggle {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: white;
   }
 }

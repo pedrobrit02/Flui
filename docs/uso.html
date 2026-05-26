@@ -11,13 +11,14 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" crossorigin href="./assets/Style-CT2V8whD.css">
+    <link rel="stylesheet" crossorigin href="./assets/Style-BKg-LcFj.css">
   </head>
   <body>
     <header class="site-header" id="topo">
       <nav class="nav" aria-label="Navegação principal">
         <div class="container nav__inner">
-          <a class="brand" href="index.html" aria-label="Ir para o início">
+          <!-- Link corrigido para voltar à página inicial -->
+          <a class="brand" href="./index.html" aria-label="Ir para o início">
             <span class="brand__symbol" aria-hidden="true"></span>
             <span class="brand__text">FLUI</span>
           </a>
@@ -29,20 +30,20 @@
             aria-controls="nav-menu"
           >
             <span class="sr-only">Abrir menu</span>
-            <span class="nav__toggleLines" aria-hidden="true"></span>
+            <span class="nav__toggleLines" aria-hidden="true">☰</span>
           </button>
 
+          <!-- Todos os links atualizados com "./index.html" -->
           <div class="nav__menu" id="nav-menu">
-            <a class="nav__link" href="#o-que-e">O que é</a>
-            <a class="nav__link" href="#o-que-oferecemos">O que oferecemos</a>
-            <a class="nav__link" href="#Utilizar equipamentos">Equipamentos</a>
-            <a class="nav__link" href="#requisitos">Requisitos</a>
-            <a class="nav__link" href="#eventos">Eventos</a>
-            <a class="nav__link" href="#documentacao-flui">Documentos</a>
-            <a class="nav__link" href="#docentes">Docentes</a>
-            <a class="nav__link" href="#alunos">Bolsas</a>
-            <a class="nav__cta" href="uso.html">Uso</a>
-            <a class="nav__cta" href="emprestimo.html">Empréstimo</a>
+            <a class="nav__link" href="./index.html#o-que-e">O que é</a>
+            <a class="nav__link" href="./index.html#o-que-oferecemos">O que oferecemos</a>
+            <a class="nav__link" href="./index.html#Utilizar-equipamentos">Equipamentos</a>
+            <a class="nav__link" href="./index.html#eventos">Eventos</a>
+            <a class="nav__link" href="./index.html#documentacao-flui">Documentos</a>
+            <a class="nav__link" href="./index.html#docentes">Docentes</a>
+            <a class="nav__link" href="./index.html#alunos">Bolsistas</a>
+            <a class="nav__cta" href="./uso.html">Uso</a>
+            <a class="nav__cta" href="./emprestimo.html">Empréstimo</a>
           </div>
         </div>
       </nav>
@@ -68,17 +69,17 @@
             <label for="setor">Setor/Curso</label>
             <input type="text" id="setor" />
 
-            <label>Sekecione o(s) equipamento(s) que deseja utilizar:</label>
+            <label>Equipamentos</label>
             <div class="equipamentos">
               <label class="equipamento-card">
                 <input type="checkbox" name="equipamento" value="Impressora 3D" />
-                <img src="./assets/impressora3D-DXZVkRDW.jpeg" alt="Impressora 3D" />
+                <img src="./assets/impressora3d-DXZVkRDW.jpeg" alt="Impressora 3D" />
                 <span class="equipamento-title">Impressora 3D</span>
               </label>
 
               <label class="equipamento-card">
                 <input type="checkbox" name="equipamento" value="Plotter" />
-                <img src="./assets/plotter-DxRlcsOi.jpeg" alt="Plotter" />
+                <img src="./assets/impressora-BjdUfEFn.jpeg" alt="Plotter" />
                 <span class="equipamento-title">Plotter</span>
               </label>
 
@@ -107,20 +108,19 @@
             <label for="observacoes">Observações</label>
             <textarea id="observacoes" rows="3"></textarea>
 
-            <label for="file">Anexe o termo de responsabilidade (PDF, máx. 10MB)</label>
-            <p class="hint">
-              Termo para assinatura:
-              <a class="form-link" href="https://docs.google.com/document/d/1jSsOVpzsi0kH93KLgw82PWwfZm3-3tnCjjFKtpxVO-I/edit?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Abrir documento"></a>.
-            </p>
-            <p class="hint">
-              Assine pelo Gov.br:
-              <a class="form-link form-link--gov" href="https://sso.acesso.gov.br/login?client_id=assinador.iti.br&authorization_id=19aa74d9070" target="_blank" rel="noopener noreferrer" aria-label="Acessar assinatura"></a>.
-            </p>
+            <label>Anexe o termo de responsabilidade (PDF, máx. 10MB)</label>
+            
+            <!-- Botões de documentos agora organizados e visíveis -->
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <a class="form-link" href="https://docs.google.com/document/d/1jSsOVpzsi0kH93KLgw82PWwfZm3-3tnCjjFKtpxVO-I/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Acessar Termo</a>
+              <a class="form-link form-link--gov" href="https://sso.acesso.gov.br/login?client_id=assinador.iti.br&authorization_id=19aa74d9070" target="_blank" rel="noopener noreferrer">Assinar no Gov.br</a>
+            </div>
+
             <input type="file" id="file" accept="application/pdf" required />
 
             <div class="actions">
               <button id="limpar" type="button" class="btn btn--ghost">Limpar</button>
-              <button id="btnEnviar" type="submit" class="btn btn--primary">Enviar</button>
+              <button id="btnEnviar" type="submit" class="btn btn--primary">Enviar Solicitação</button>
             </div>
             <div class="msg" id="msg"></div>
           </form>
@@ -130,16 +130,16 @@
 
     <script>
       const navToggle = document.querySelector(".nav__toggle");
+      const navMenu = document.querySelector(".nav__menu");
       if (navToggle) {
         navToggle.addEventListener("click", () => {
-          const isOpen = document.documentElement.classList.toggle("nav-open");
-          navToggle.setAttribute("aria-expanded", String(isOpen));
+          const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+          navToggle.setAttribute('aria-expanded', !expanded);
+          navMenu.classList.toggle('nav__menu--open');
         });
       }
 
-      const SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbwjD1CqT0BNYEd3bCdCk3xIBfTHbjJW2WDlMEFbAcIaJnAJb_ZccqLBLwGCJ2eONwQMsw/exec";
-
+      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwjD1CqT0BNYEd3bCdCk3xIBfTHbjJW2WDlMEFbAcIaJnAJb_ZccqLBLwGCJ2eONwQMsw/exec";
       const form = document.getElementById("form");
       const btnEnviar = document.getElementById("btnEnviar");
       const limpar = document.getElementById("limpar");
@@ -159,13 +159,20 @@
         try {
           const equipamentosSelecionados = Array.from(
             document.querySelectorAll('input[name="equipamento"]:checked')
-          )
-            .map((item) => item.value)
-            .join(", ");
+          ).map((item) => item.value).join(", ");
 
-          if (!equipamentosSelecionados) {
-            throw new Error("Selecione ao menos um equipamento.");
-          }
+          if (!equipamentosSelecionados) throw new Error("Selecione ao menos um equipamento.");
+
+          const fileInput = document.getElementById("file");
+          const file = fileInput.files[0];
+          if (!file) throw new Error("Anexe o PDF do termo.");
+          if (file.size > 10 * 1024 * 1024) throw new Error("Arquivo maior que 10MB.");
+
+          const base64 = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(file);
+          });
 
           const payload = {
             nome: document.getElementById("nome").value,
@@ -177,24 +184,10 @@
             inicio: document.getElementById("inicio").value,
             fim: document.getElementById("fim").value,
             finalidade: document.getElementById("finalidade").value,
-            observacoes: document.getElementById("observacoes").value
+            observacoes: document.getElementById("observacoes").value,
+            file: base64,
+            fileName: file.name
           };
-
-          const fileInput = document.getElementById("file");
-          const file = fileInput.files[0];
-          if (!file) {
-            throw new Error("Anexe o PDF do termo.");
-          }
-          if (file.size > 10 * 1024 * 1024) {
-            throw new Error("Arquivo maior que 10MB.");
-          }
-          const reader = new FileReader();
-          const base64 = await new Promise((resolve) => {
-            reader.onload = () => resolve(reader.result);
-            reader.readAsDataURL(file);
-          });
-          payload.file = base64;
-          payload.fileName = file.name;
 
           await fetch(SCRIPT_URL, {
             method: "POST",
@@ -204,14 +197,14 @@
           });
 
           msg.style.color = "green";
-          msg.textContent = "✅ Solicitação de uso realizada com sucesso!";
+          msg.textContent = "✅ Solicitação realizada com sucesso!";
           form.reset();
         } catch (err) {
           msg.style.color = "red";
           msg.textContent = "❌ Erro: " + (err.message || String(err));
         } finally {
           btnEnviar.disabled = false;
-          btnEnviar.textContent = "Enviar";
+          btnEnviar.textContent = "Enviar Solicitação";
         }
       });
     </script>

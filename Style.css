@@ -1436,42 +1436,45 @@ input[type="file"]::file-selector-button:hover {
     justify-content: flex-end;
   }
 }
-@media (max-width: 768px) {
-  .projects__grid, .cards, .peopleGrid {
-    justify-items: center !important;
-  }
+/* =========================================
+   1. CORREÇÃO DO E-MAIL (Sem borda, na esquerda)
+   ========================================= */
+.eventCard__mailto {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 8px 0 !important;
+  color: var(--purple) !important;
 }
 
-@media (max-width: 1160px) {
-  .nav__toggle { 
-    display: inline-grid !important; 
-    place-items: center; 
+.eventContact {
+  text-align: left !important;
+  align-items: flex-start !important;
+}
+
+/* =========================================
+   2. CORREÇÃO DOS CARDS NO MOBILE (Texto na esquerda)
+   ========================================= */
+@media (max-width: 768px) {
+  /* Alinha os textos à esquerda */
+  .section__head, .projectCard, .card, .eventCard {
+    text-align: left !important;
   }
   
-  .nav__menu {
-    position: fixed;
-    inset: 70px 14px auto 14px;
-    display: none;
-    flex-direction: column;
-    gap: 12px;
-    padding: 18px;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.98);
-    border: 1px solid rgba(12, 12, 16, 0.12);
-    box-shadow: var(--shadow);
-    z-index: 2000;
-  }
-
-  .nav__menu.nav__menu--open {
-    display: grid !important; 
-  }
-
-  .nav__link {
-    width: 100%;
-    justify-content: center;
+  /* Volta os cards para o tamanho/alinhamento normal da tela */
+  .projects__grid, .cards, .peopleGrid {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important; 
   }
 }
 
+/* =========================================
+   3. CORREÇÃO DA NAVBAR (Sumiu no PC / Não abre no Mobile)
+   ========================================= */
+/* PC: Navbar sempre visível e botão escondido */
 @media (min-width: 1161px) {
   .nav__menu {
     display: flex !important;
@@ -1481,6 +1484,34 @@ input[type="file"]::file-selector-button:hover {
   }
 }
 
-.nav__menu {
-  z-index: 2000;
+/* Mobile: Botão visível, Menu escondido até clicar */
+@media (max-width: 1160px) {
+  .nav__toggle {
+    display: inline-grid !important;
+    place-items: center !important;
+    z-index: 9999 !important;
+  }
+  
+  .nav__menu {
+    display: none !important; /* Esconde por padrão */
+    position: fixed !important;
+    inset: 70px 14px auto 14px !important;
+    flex-direction: column !important;
+    background: #ffffff !important;
+    padding: 18px !important;
+    border-radius: 18px !important;
+    box-shadow: 0 18px 55px rgba(10, 10, 20, 0.12) !important;
+    z-index: 9998 !important;
+  }
+  
+  /* A classe que o seu JS joga no menu para abrir */
+  .nav__menu.nav__menu--open {
+    display: grid !important; 
+  }
+  
+  .nav__link, .nav__cta {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
 }

@@ -17,19 +17,19 @@
     />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
-      <script>
-      // Controle do Menu Mobile
-      const toggleBtn = document.querySelector('.nav__toggle');
-      const navMenu = document.querySelector('.nav__menu');
+  <script>
+  // Controle do Menu Mobile
+  const toggleBtn = document.querySelector('.nav__toggle');
+  const navMenu = document.querySelector('.nav__menu');
 
-      if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-          const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-          toggleBtn.setAttribute('aria-expanded', !expanded);
-          navMenu.classList.toggle('nav__menu--open'); // Adiciona/remove classe de visibilidade
-        });
-      }
-    </script>
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', !expanded);
+      navMenu.classList.toggle('nav__menu--open'); // Adiciona/remove classe de visibilidade
+    });
+  }
+</script>
 
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>

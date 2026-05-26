@@ -2457,23 +2457,3 @@ input[type="file"]::file-selector-button:hover {
     padding-right: 10px;
   }
 }
-@media (max-width: 768px) {
-  /* Forçamos o contêiner a permitir scroll horizontal */
-  .cards, .carousel, .container-cards {
-    display: flex !important;
-    flex-wrap: nowrap !important; /* Impede que os cards pulem de linha */
-    overflow-x: auto !important;  /* Habilita o scroll lateral */
-    overflow-y: hidden !important;
-    width: 100% !important;
-    scroll-behavior: smooth !important;
-    -webkit-overflow-scrolling: touch !important; /* Suaviza no iOS */
-    gap: 15px !important;
-    padding: 10px !important;
-  }
-
-  /* Forçamos os cards a não encolherem */
-  .cards > *, .carousel > * {
-    flex: 0 0 80% !important; /* Cada card ocupa 80% da largura */
-    min-width: 80% !important;
-  }
-}

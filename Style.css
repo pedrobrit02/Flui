@@ -1456,11 +1456,23 @@ input[type="file"]::file-selector-button:hover {
   align-items: stretch !important;
 }
 
-.projectCard, .card, .person {
+.projectCard, .card {
   height: 100% !important;
   display: flex !important;
   flex-direction: column !important;
+  align-items: flex-start !important;
   justify-content: flex-start !important;
+  text-align: left !important;
+  min-height: 250px !important;
+}
+
+.person {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
   min-height: 250px !important;
 }
 

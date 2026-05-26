@@ -1467,13 +1467,16 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .person {
-  height: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-  min-height: 250px !important;
+  gap: 24px !important;
+}
+
+.avatar {
+  width: 110px !important;
+  height: 110px !important;
+}
+
+.person__name {
+  font-size: 1.15rem !important;
 }
 
 .btn, .form-link, .nav__cta, button {

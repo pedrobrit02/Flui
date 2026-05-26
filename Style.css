@@ -355,7 +355,6 @@
     }
   }
   
-  /* Sections */
   section[id] {
     scroll-margin-top: calc(var(--header-h) + 18px);
   }
@@ -480,45 +479,46 @@
   .projectCardOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(12, 12, 18, 0.24);
+    background: rgba(12, 12, 18, 0.60);
+    backdrop-filter: blur(12px);
     display: grid;
     place-items: center;
-    padding: 18px;
+    padding: 20px;
     z-index: 1100;
   }
   
   .projectCardModal {
-    width: min(96vw, 920px);
-    max-height: min(90vh, 760px);
+    width: min(98vw, 1000px);
+    max-height: min(94vh, 820px);
     overflow-y: auto;
-    padding: 32px;
-    border-radius: calc(var(--radius) + 6px);
-    background: rgba(255, 255, 255, 0.995);
+    padding: 36px;
+    border-radius: 34px;
+    background: rgba(255, 255, 255, 0.98);
     border: 1px solid rgba(122, 44, 255, 0.18);
-    box-shadow: 0 40px 110px rgba(10, 10, 20, 0.22);
+    box-shadow: 0 44px 120px rgba(10, 10, 20, 0.30);
     position: relative;
   }
   
   .projectCard__close {
     position: absolute;
-    top: 18px;
-    right: 18px;
+    top: 20px;
+    right: 20px;
     border: none;
-    background: transparent;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.9);
     color: var(--purple);
     font-weight: 700;
     cursor: pointer;
+    transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    box-shadow: 0 10px 20px rgba(122, 44, 255, 0.12);
   }
   
-  .projectCard__close {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    border: none;
-    background: transparent;
-    color: var(--purple);
-    font-weight: 700;
-    cursor: pointer;
+  .projectCard__close:hover,
+  .projectCard__close:focus-visible {
+    background: rgba(122, 44, 255, 0.12);
+    transform: translateY(-1px);
+    outline: none;
   }
   
   .projectCard--small .projectCard__section {
@@ -575,8 +575,156 @@
   
   .projectCard__section h5 {
     margin: 0 0 10px;
-    font-size: 0.98rem;
+    font-size: 1rem;
     color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  
+  .profileModal {
+    max-width: min(98vw, 980px);
+    padding: 32px;
+    border-radius: 32px;
+    background: blank;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 32px 80px rgba(10, 10, 20, 0.12);
+  }
+  
+  .profileHeader {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 26px;
+    align-items: start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(12, 12, 16, 0.08);
+  }
+  
+  .profileHeader h4 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: rgba(12, 12, 16, 1);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  .profileLattes {
+    display: inline-flex;
+    margin: 6px 0 0;
+    font-size: 0.92rem;
+    color: rgba(84, 41, 178, 0.92);
+    text-decoration: none;
+    border-bottom: 1px dashed rgba(84, 41, 178, 0.55);
+  }
+
+  .profileLattes:hover,
+  .profileLattes:focus-visible {
+    color: rgba(84, 41, 178, 1);
+    outline: none;
+  }
+
+  .profileMissing {
+    margin: 0;
+    color: rgba(12, 12, 16, 0.65);
+    font-size: 0.98rem;
+    font-style: italic;
+  }
+  
+  .profileAvatar {
+    width: 108px;
+    height: 108px;
+    border-radius: 30px;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at top left, rgba(122, 44, 255, 0.2), rgba(255,255,255,0.9));
+    box-shadow: 0 26px 60px rgba(10, 10, 20, 0.12);
+    border: 1px solid rgba(122, 44, 255, 0.18);
+  }
+  
+  .profileAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profileMeta {
+    display: grid;
+    gap: 8px;
+  }
+  
+  .person__role {
+    margin: 0;
+    color: rgba(12, 12, 16, 0.9);
+    font-size: 1rem;
+    line-height: 1.55;
+    font-weight: 600;
+  }
+  
+  .profileSummary {
+    margin: 12px 0 0;
+    color: rgba(12, 12, 16, 0.96);
+    font-size: 1.05rem;
+    line-height: 1.85;
+    max-width: 72ch;
+  }
+  
+  .profileBadges,
+  .skillGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .profileBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(122, 44, 255, 0.10);
+    color: var(--purple);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  
+  .profileSection {
+    padding: 20px 0 0;
+  }
+  
+  .profileSection ul {
+    margin: 0;
+    padding-left: 20px;
+    color: rgba(12, 12, 16, 0.95);
+    font-size: 1rem;
+  }
+
+  .profileSection p,
+  .profileSection ul li {
+    margin-bottom: 0.95rem;
+    line-height: 1.9;
+    color: rgba(12, 12, 16, 0.95);
+    font-size: 1.02rem;
+  }
+
+  .section__hint {
+    margin: 10px 0 0;
+    color: rgba(12, 12, 16, 0.75);
+    font-size: 0.95rem;
+    max-width: 680px;
+  }
+  
+  .person__role {
+    margin: 0;
+    color: rgba(12, 12, 16, 0.7);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  
+  .person:hover,
+  .person:focus-within {
+    transform: translateY(-2px);
+    border-color: rgba(122, 44, 255, 0.18);
   }
   
   .projectCard__section ul {
@@ -1865,6 +2013,16 @@ input[type="file"]::file-selector-button:hover {
     gap: 12px;
     justify-items: center;
     text-align: center;
+    cursor: pointer;
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+
+  .person:hover,
+  .person:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 54px rgba(10, 10, 20, 0.12);
+    border-color: rgba(122, 44, 255, 0.18);
+    background: rgba(255, 255, 255, 0.95);
   }
   
   .avatar {
@@ -2137,8 +2295,8 @@ input[type="file"]::file-selector-button:hover {
     padding: 12px;
     margin-bottom: 14px;
     background:
-      radial-gradient(520px 220px at 10% 0%, rgba(255, 46, 166, 0.08), transparent 62%),
-      radial-gradient(520px 220px at 90% 100%, rgba(43, 123, 255, 0.08), transparent 62%),
+      radial-gradient(520px 220px at 10% 0%, rgba(255, 46, 166, 0.08), transparent 0%),
+      radial-gradient(520px 220px at 90% 100%, rgba(43, 123, 255, 0.08), transparent 22%),
       rgba(250, 249, 255, 0.8);
   }
 
@@ -2252,4 +2410,3 @@ input[type="file"]::file-selector-button:hover {
       justify-content: flex-end;
     }
   }
-  

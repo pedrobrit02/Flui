@@ -1,0 +1,13 @@
+# Pastas de dependências e build
+node_modules
+dist
+.vite
+
+# Arquivos de log e sistema
+package-lock.json
+*.log
+.DS_Store
+
+# Variáveis de ambiente (Segurança!)
+.env
+.env.local

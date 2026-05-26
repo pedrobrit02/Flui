@@ -2477,15 +2477,3 @@ input[type="file"]::file-selector-button:hover {
     min-width: 80% !important;
   }
 }
-@media (max-width: 768px) {
-  .nav__menu {
-    display: none; /* Escondido por padrão no mobile */
-    flex-direction: column;
-    width: 100%;
-  }
-
-  /* Quando JS adiciona a classe, ele aparece */
-  .nav__menu.nav__menu--open {
-    display: flex !important;
-  }
-}
